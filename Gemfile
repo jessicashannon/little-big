@@ -26,8 +26,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-# Use Unicorn as the app server
-# gem 'unicorn'
+# Use Thin server
+gem 'thin', '~> 1.6.4'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -44,4 +44,3 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
-
