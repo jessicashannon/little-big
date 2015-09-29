@@ -13,7 +13,7 @@ class QuestionsController < ApplicationController
     if @question.save
       redirect_to @question
     else
-      render new_question_path, alert: "You're question could not be created. Please try again."
+      render new_question_path, alert: "Your question could not be created. Please try again."
     end
   end
 
@@ -21,6 +21,19 @@ class QuestionsController < ApplicationController
     @question = Question.find(params[:id])
   end
 
+  def edit
+    @question = Question.find(params[:id])
+  end
+
+  def update
+    @question = Question.find(params[:id])
+      if @question.update(question_params)
+        flash[:notice] = "You're question has been updated"
+        redirect_to @question
+      else
+        render :edit
+      end
+  end
 
 private
 

@@ -1,3 +1,4 @@
 <%= @question.body %>
 
-<!-- add edit  -->
+<%= link_to 'Edit', edit_question_path(@question) %> |
+<%= link_to 'Back', question_path %>
