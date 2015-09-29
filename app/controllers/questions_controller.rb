@@ -28,7 +28,7 @@ class QuestionsController < ApplicationController
   def update
     @question = Question.find(params[:id])
       if @question.update(question_params)
-        flash[:notice] = "You're question has been updated"
+        flash[:notice] = "Your question has been updated"
         redirect_to @question
       else
         render :edit
