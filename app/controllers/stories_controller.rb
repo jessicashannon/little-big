@@ -4,13 +4,20 @@ class StoriesController < ApplicationController
     @stories = Story.all
   end
 
+  # def question_id=(id)
+  #   self.questions.build(Question.find(id))
+  # end
+
   def new
+    # if Question.find(params[:question_id])
+    #   @question = Question.find(params[:question_id])
+    # end
     @story = Story.new
   end
 
   def create
     @question = Question.find(params[:id])
-    @story = @question.stories.create(comment_params.merge(user: current_user))
+    @story = @question.story.create(story_params)
     if @story.save
       redirect_to @story
     else

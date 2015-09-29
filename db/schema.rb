@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150928220006) do
+ActiveRecord::Schema.define(version: 20150929192558) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,16 @@ ActiveRecord::Schema.define(version: 20150928220006) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "conversations", force: :cascade do |t|
+    t.integer  "question_id"
+    t.integer  "story_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "conversations", ["question_id"], name: "index_conversations_on_question_id", using: :btree
+  add_index "conversations", ["story_id"], name: "index_conversations_on_story_id", using: :btree
 
   create_table "questions", force: :cascade do |t|
     t.text     "body"
@@ -46,12 +56,9 @@ ActiveRecord::Schema.define(version: 20150928220006) do
 
   create_table "stories", force: :cascade do |t|
     t.text     "body"
-    t.integer  "question_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
-
-  add_index "stories", ["question_id"], name: "index_stories_on_question_id", using: :btree
 
   create_table "topics", force: :cascade do |t|
     t.integer  "concept_id"
@@ -63,9 +70,10 @@ ActiveRecord::Schema.define(version: 20150928220006) do
   add_index "topics", ["concept_id"], name: "index_topics_on_concept_id", using: :btree
   add_index "topics", ["story_id"], name: "index_topics_on_story_id", using: :btree
 
+  add_foreign_key "conversations", "questions"
+  add_foreign_key "conversations", "stories"
   add_foreign_key "relationships", "characters"
   add_foreign_key "relationships", "stories"
-  add_foreign_key "stories", "questions"
   add_foreign_key "topics", "concepts"
   add_foreign_key "topics", "stories"
 end

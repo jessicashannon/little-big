@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   root 'welcome#index'
 
-  resources :questions
+  resources :questions do
+    resources :stories
+  end
+
   resources :stories
   resources :characters
   resources :concepts
