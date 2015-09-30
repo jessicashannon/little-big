@@ -1,10 +1,10 @@
 <div><%= question.body %></div>
 
 <!-- only allow user who created question to edit Question -->
-<div><%= link_to 'Edit this question', edit_question_path(question) %></div>
+<div><%= link_to 'Edit', edit_question_path(question) %></div>
 
 <!-- only allow users who have not created this question to answer this question. Show a custom message to creator of message -->
-<div><%= link_to "Answer this Question", new_story_path %></div>
+<div><%= link_to "Answer", new_question_story_path(question)%></div>
 
 <!-- encourage new questions -->
 <div><%= link_to "Ask a new Question", new_question_path %></div>

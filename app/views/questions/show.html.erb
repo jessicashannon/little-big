@@ -1,4 +1,6 @@
 <h1><%= @question.body %></h1>
 
+<%= render @question.stories %>
+
 <%= link_to "Answer", new_question_story_path(@question) %>
 <%= link_to 'Edit', edit_question_path(@question) %>

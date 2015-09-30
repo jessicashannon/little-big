@@ -4,24 +4,17 @@ class StoriesController < ApplicationController
     @stories = Story.all
   end
 
-  # def question_id=(id)
-  #   self.questions.build(Question.find(id))
-  # end
-
   def new
-    # if Question.find(params[:question_id])
-    #   @question = Question.find(params[:question_id])
-    # end
     @story = Story.new
+    @story.questions << Question.find(params[:question_id]) if params[:question_id]
   end
 
   def create
-    @question = Question.find(params[:id])
-    @story = @question.story.create(story_params)
+    @story = Story.new(story_params)
     if @story.save
-      redirect_to @story
+      redirect_to @story.questions.last
     else
-      render new_story_path, alert: "Your story could not be created. Please try again."
+      render new_question_story_path, alert: "Your story could not be created. Please try again."
     end
   end
 
@@ -32,6 +25,13 @@ class StoriesController < ApplicationController
   def edit
     @story = Story.find(params[:id])
   end
+
+  # def destroy
+  #   @story = Story.find(params[:id])
+  #   @question = @story.questions.last.id
+  #   @story.destroy
+  #   redirect_to @question
+  # end
 
   def update
     @story = Story.find(params[:id])
@@ -46,6 +46,6 @@ class StoriesController < ApplicationController
 private
 
   def story_params
-    params.require(:story).permit(:body)
+    params.require(:story).permit(:body, :question_id)
   end
 end
